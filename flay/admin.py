@@ -2,12 +2,11 @@ import textwrap
 
 from django.contrib import admin
 
-from flay.models import Hospital, Doctor, Specialization, Department
-
+from flay.models import Hospital, Doctor, Specialization, Department, Diagnosis, Patient
 
 admin.site.register(Specialization)
 admin.site.register(Department)
-
+admin.site.register(Diagnosis)
 # Создание кастомный админке
 
 @admin.register(Hospital)
@@ -18,7 +17,7 @@ class AdminHospital(admin.ModelAdmin):
         "class_hospital",
         "time_work_display",
         "address",
-        "date",
+        "date_create",
     )
 
     # Фильтрция для админке
@@ -34,6 +33,7 @@ class AdminHospital(admin.ModelAdmin):
 @admin.register(Doctor)
 class AdminDoctor(admin.ModelAdmin):
     list_display = (
+        "user",
         "name",
         "firs_name",
         "birthday",
@@ -46,3 +46,19 @@ class AdminDoctor(admin.ModelAdmin):
     search_fields = ("specialization", "department", "name")
 
 
+@admin.register(Patient)
+class AdminPatient(admin.ModelAdmin):
+    list_display = (
+        'user',
+        'name',
+        'firs_name',
+        'birthday',
+        'attending_physician',
+
+    )
+    list_display_links = ("firs_name",
+                          "attending_physician",
+                          )
+
+    list_filter = ("firs_name", "birthday" )
+    search_fields = ("name",)

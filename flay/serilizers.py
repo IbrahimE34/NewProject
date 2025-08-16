@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from flay.models import Hospital, Doctor, Specialization, Department
+from flay.models import Hospital, Doctor, Specialization, Department, Patient
+
 
 # Общеие создание сериализаций для json в хроме
 class SpecializationSerializer(serializers.ModelSerializer):
@@ -49,3 +50,15 @@ class HospitalSerializers(serializers.ModelSerializer):
         )
 
 
+class PatientSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Patient
+        fields = (
+            'user',
+            'name',
+            'firs_name',
+            'birthday',
+            'attending_physician',
+            'the_hospital',
+
+        )
